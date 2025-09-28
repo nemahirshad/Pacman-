@@ -5,11 +5,8 @@ using System.Linq;
 [RequireComponent(typeof(Rigidbody2D))]
 public class GhostWallBounce : MonoBehaviour
 {
-    // NEW FLAG: This is controlled by GhostBehavior scripts (Chase, Scatter, Frightened).
-    // When false, the OnCollisionEnter2D logic is bypassed, giving control to the Node logic.
     [HideInInspector] public bool canWallBounce = true;
 
-    // Properties shared with the original Movement script
     public float speed = 8f;
     public float speedMultiplier = 1f;
     public Vector2 initialDirection;
@@ -43,7 +40,7 @@ public class GhostWallBounce : MonoBehaviour
         rb.isKinematic = false;
         enabled = true;
         canWallBounce = true; // Reset to default bounce behavior
-        rb.velocity = Vector2.zero; // IMPORTANT: Clear velocity on reset
+        rb.velocity = Vector2.zero; // Clear velocity on reset
     }
 
     private void Update()
@@ -52,6 +49,7 @@ public class GhostWallBounce : MonoBehaviour
         {
             SetDirection(nextDirection);
         }
+
     }
 
     private void FixedUpdate()
@@ -59,25 +57,17 @@ public class GhostWallBounce : MonoBehaviour
         Vector2 position = rb.position;
         float currentSpeed = speed * speedMultiplier;
 
-        // Use Rigidbody velocity for controlled movement, essential for Kinematic body interaction
-        // with the physics engine (this prevents "teleporting" via rb.MovePosition if physics takes over)
         rb.velocity = direction * currentSpeed;
 
-        // Note: The previous rb.MovePosition is less ideal for a Kinematic body used with collisions.
-        // We rely on rb.velocity now.
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    /*private void OnCollisionEnter2D(Collision2D collision)
     {
         // Check if we hit an obstacle/wall layer
         if (((1 << collision.gameObject.layer) & obstacleLayer) != 0)
         {
-            // NEW LOGIC: Stop ALL movement immediately on hitting a wall
             rb.velocity = Vector2.zero;
 
-            // ----------------------------------------------------------------
-            // LOGIC FOR NON-CHASE BEHAVIORS (Scatter/Frightened)
-            // ----------------------------------------------------------------
             if (canWallBounce)
             {
                 Node currentNode = GetCurrentNode();
@@ -94,8 +84,6 @@ public class GhostWallBounce : MonoBehaviour
                     SetDirection(-direction, forced: true);
                 }
 
-                // IMPORTANT: The snap back is no longer needed since we used rb.velocity = 0
-                // and the collision naturally prevents penetration.
             }
             else
             {
@@ -109,9 +97,8 @@ public class GhostWallBounce : MonoBehaviour
                 SetDirection(Vector2.zero, forced: true); // Force direction to zero until node logic runs
             }
         }
-    }
+    }*/
 
-    // ... (GetCurrentNode, GetNewRandomDirection, SetDirection, Occupied remain unchanged)
 
     // Helper function to check if the ghost is currently inside a Node trigger
     private Node GetCurrentNode()
