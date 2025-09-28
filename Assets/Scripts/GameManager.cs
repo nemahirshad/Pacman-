@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < ghosts.Length; i++)
         {
-            ghosts[i].frightened.Enable(pellet.duration);
+            //ghosts[i].frightened.Enable(pellet.duration);
         }
 
         PelletEaten(pellet);
