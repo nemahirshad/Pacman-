@@ -21,6 +21,7 @@ public class Node : MonoBehaviour
         RaycastHit2D hit = Physics2D.BoxCast(transform.position, Vector2.one * 0.5f, 0f, direction, 1f, obstacleLayer);
 
         if (hit.collider == null)
+
         {
             availableDirections.Add(direction);
         }

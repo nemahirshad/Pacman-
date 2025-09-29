@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5651617011907778763}
   - component: {fileID: 6174834224748496493}
   - component: {fileID: -8355730446707102832}
+  - component: {fileID: 4521494877685189799}
   m_Layer: 8
   m_Name: Pellet
   m_TagString: Untagged
@@ -144,3 +145,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 15
+--- !u!114 &4521494877685189799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7241780909994988190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b55f84f7eb27146afee1e802b80b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glowColor: {r: 0.06140983, g: 1, b: 0, a: 1}
+  duration: 5
+  pulseSpeed: 2
+  minAlpha: 1
+  maxScale: 1.2

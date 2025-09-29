@@ -53,10 +53,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void NewGame()
+    public void NewGame()
     {
         SetScore(0);
-        //SetLives(3);
         NewRound();
     }
 
@@ -92,13 +91,12 @@ public class GameManager : MonoBehaviour
         }
 
         pacman.gameObject.SetActive(false);
-    }
 
-   /* private void SetLives(int lives)
-    {
-        this.lives = lives;
-        livesText.text = "x" + lives.ToString();
-    }*/
+        if (LeaderboardDisplay.instance != null)
+        {
+            LeaderboardDisplay.instance.AddToLeaderboard(this.score);
+        }
+    }
 
     private void SetScore(int score)
     {
