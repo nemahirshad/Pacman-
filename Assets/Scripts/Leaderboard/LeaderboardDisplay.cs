@@ -32,9 +32,12 @@ public class LeaderboardDisplay : MonoBehaviour
         ReadFromCSV();
     }
 
+    // Inside LeaderboardDisplay.cs
     public void AddToLeaderboard(float score)
     {
         data.Add(new LeaderboardData(score));
+
+        Debug.Log($"Submitting score: {score}. Total entries before sort: {data.Count}");
 
         playerScore = score;
 
@@ -81,8 +84,16 @@ public class LeaderboardDisplay : MonoBehaviour
     void ReadFromCSV()
     {
         databasePath = $"{Application.streamingAssetsPath}/database.csv";
+
+        if (!Directory.Exists(Application.streamingAssetsPath))
+        {
+            Directory.CreateDirectory(Application.streamingAssetsPath);
+        }
+
+
         if (!File.Exists(databasePath))
         {
+            File.WriteAllText(databasePath, "");
             Debug.LogWarning("CSV file not found. Creating a new one when a score is saved.");
             return;
         }

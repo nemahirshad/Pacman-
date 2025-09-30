@@ -19,11 +19,18 @@ public class GhostWallBounce : MonoBehaviour
 
     private Ghost ghost;
 
+    // Inside GhostWallBounce.cs
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        Debug.Log($"Shark Rigidbody is: {rb}"); // Check 1: Should not be null
+
         ghost = GetComponent<Ghost>();
+        Debug.Log($"Shark Ghost script is: {ghost}"); // Check 2: Should not be null
+
         startingPosition = transform.position;
+        Debug.Log($"Shark Starting Position is: {startingPosition}"); // Check 3: Should not be null
     }
 
     private void Start()
@@ -33,14 +40,19 @@ public class GhostWallBounce : MonoBehaviour
 
     public void ResetState()
     {
-        speedMultiplier = 1f;
-        direction = initialDirection;
-        nextDirection = Vector2.zero;
+        // TEMPORARY FIX: Add this null check to find the crashing line (Line 47)
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody is null on " + gameObject.name);
+            return; // Prevent crash, but indicates a setup issue
+        }
+
+        // ... (Your other lines)
         transform.position = startingPosition;
-        rb.isKinematic = false;
+        rb.isKinematic = false; // <-- The crashing line (or near it)
         enabled = true;
-        canWallBounce = true; // Reset to default bounce behavior
-        rb.velocity = Vector2.zero; // Clear velocity on reset
+        canWallBounce = true;
+        rb.velocity = Vector2.zero;
     }
 
     private void Update()

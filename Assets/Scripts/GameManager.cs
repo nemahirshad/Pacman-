@@ -68,6 +68,12 @@ public class GameManager : MonoBehaviour
             pellet.gameObject.SetActive(true);
         }
 
+        pacman.gameObject.SetActive(true);
+        for (int i = 0; i < ghosts.Length; i++)
+        {
+            ghosts[i].gameObject.SetActive(true);
+        }
+
         ResetState();
     }
 
@@ -85,17 +91,23 @@ public class GameManager : MonoBehaviour
     {
         gameOverText.enabled = true;
 
+        pacman.gameObject.SetActive(false);
+
+        Debug.Log("Game Over called. Submitting score: " + this.score);
+
         for (int i = 0; i < ghosts.Length; i++)
         {
             ghosts[i].gameObject.SetActive(false);
         }
 
-        pacman.gameObject.SetActive(false);
+        // Ensure this line is not redundant (it's in your code twice, but won't hurt)
 
         if (LeaderboardDisplay.instance != null)
         {
             LeaderboardDisplay.instance.AddToLeaderboard(this.score);
         }
+
+        // NOTE: The game is now frozen, waiting for Input.anyKeyDown in Update() to call NewGame()
     }
 
     private void SetScore(int score)
@@ -108,7 +120,7 @@ public class GameManager : MonoBehaviour
     {
         pacman.DeathSequence();
 
-        //SetLives(lives - 1);
+        lives -= 1;
 
         if (lives > 0)
         {
@@ -137,7 +149,7 @@ public class GameManager : MonoBehaviour
         if (!HasRemainingPellets())
         {
             pacman.gameObject.SetActive(false);
-            Invoke(nameof(NewRound), 3f);
+            Invoke(nameof(GameOver), 3f);
         }
     }
 
