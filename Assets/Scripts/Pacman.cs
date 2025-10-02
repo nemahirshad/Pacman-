@@ -5,15 +5,16 @@ public class Pacman : MonoBehaviour
 {
     [SerializeField]
     private AnimatedSprite deathSequence;
-    private SpriteRenderer spriteRenderer;
-    private CircleCollider2D circleCollider;
-    private Movement movement;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private CircleCollider2D circleCollider;
+    [SerializeField] private Movement movement;
+
 
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        circleCollider = GetComponent<CircleCollider2D>();
+        circleCollider = GetComponentInChildren<CircleCollider2D>();
         movement = GetComponent<Movement>();
+      
     }
 
     private void Update()
@@ -50,6 +51,7 @@ public class Pacman : MonoBehaviour
         deathSequence.enabled = false;
         movement.ResetState();
         gameObject.SetActive(true);
+
     }
 
     public void DeathSequence()

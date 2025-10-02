@@ -7,35 +7,34 @@ public class GhostWallBounce : MonoBehaviour
 {
     [HideInInspector] public bool canWallBounce = true;
 
+    public Transform startPoint;
     public float speed = 8f;
     public float speedMultiplier = 1f;
     public Vector2 initialDirection;
     public LayerMask obstacleLayer;
 
-    public Rigidbody2D rb { get; private set; }
+    [SerializeField] public Rigidbody2D rb;
     public Vector2 direction { get; private set; }
     public Vector2 nextDirection { get; private set; }
-    public Vector3 startingPosition { get; private set; }
+    //public Vector3 startingPosition { get; private set; }
 
     private Ghost ghost;
 
     // Inside GhostWallBounce.cs
 
-    private void Awake()
+    public void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        Debug.Log($"Shark Rigidbody is: {rb}"); // Check 1: Should not be null
 
         ghost = GetComponent<Ghost>();
         Debug.Log($"Shark Ghost script is: {ghost}"); // Check 2: Should not be null
 
         startingPosition = transform.position;
-        Debug.Log($"Shark Starting Position is: {startingPosition}"); // Check 3: Should not be null
     }
 
     private void Start()
     {
-        ResetState();
+        //startingPosition = transform.position;
+        //ResetState();
     }
 
     public void ResetState()

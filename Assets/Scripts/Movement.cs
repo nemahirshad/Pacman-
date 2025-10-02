@@ -3,24 +3,25 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour
 {
+    public Transform startPoint;
     public float speed = 8f;
     public float speedMultiplier = 1f;
     public Vector2 initialDirection;
     public LayerMask obstacleLayer;
-
-    public Rigidbody2D rb { get; private set; }
+    [SerializeField] private Rigidbody2D rb;
     public Vector2 direction { get; private set; }
     public Vector2 nextDirection { get; private set; }
-    public Vector3 startingPosition { get; private set; }
+    //public Vector3 startingPosition { get; private set; }
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        startingPosition = transform.position;
+        //rb = GetComponent<Rigidbody2D>();
+        //startingPosition = transform.position;
     }
 
     private void Start()
     {
+        //startingPosition = transform.position;
         ResetState();
     }
 
@@ -29,7 +30,10 @@ public class Movement : MonoBehaviour
         speedMultiplier = 1f;
         direction = initialDirection;
         nextDirection = Vector2.zero;
-        transform.position = startingPosition;
+        if (startPoint != null)
+        {
+            transform.position = startPoint.position;
+        }
         rb.isKinematic = false;
         enabled = true;
     }

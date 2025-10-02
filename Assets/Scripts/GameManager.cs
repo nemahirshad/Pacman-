@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 [DefaultExecutionOrder(-100)]
 public class GameManager : MonoBehaviour
@@ -16,7 +17,7 @@ public class GameManager : MonoBehaviour
     //[SerializeField] private TextMeshProUGUI livesText;
 
     public int score { get; private set; } = 0;
-    public int lives { get; private set; } = 3;
+    //public int lives { get; private set; } = 3;
 
     private int ghostMultiplier = 1;
 
@@ -40,17 +41,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /*  private void Start()
+      {
+          NewGame();
+      }*/
+
     private void Start()
     {
-        NewGame();
+        StartCoroutine(StartGameRoutine());
     }
 
+    private IEnumerator StartGameRoutine()
+    {
+        // Wait one frame. This allows all Awake() and Start() methods in the 
+        // scene (including entity position logging) to finish running.
+        yield return null;
+
+        NewGame();
+    }
     private void Update()
     {
-        if (lives <= 0 && Input.anyKeyDown)
+
+        if (gameOverText.enabled && Input.anyKeyDown)
         {
             NewGame();
         }
+
     }
 
     public void NewGame()
@@ -120,16 +136,8 @@ public class GameManager : MonoBehaviour
     {
         pacman.DeathSequence();
 
-        lives -= 1;
-
-        if (lives > 0)
-        {
-            Invoke(nameof(ResetState), 3f);
-        }
-        else
-        {
-            GameOver();
-        }
+        Invoke(nameof(GameOver), 3f);
+     
     }
 
     public void GhostEaten(Ghost ghost)
@@ -155,10 +163,6 @@ public class GameManager : MonoBehaviour
 
     public void PowerPelletEaten(PowerPellet pellet)
     {
-        for (int i = 0; i < ghosts.Length; i++)
-        {
-            //ghosts[i].frightened.Enable(pellet.duration);
-        }
 
         PelletEaten(pellet);
         CancelInvoke(nameof(ResetGhostMultiplier));
@@ -167,6 +171,7 @@ public class GameManager : MonoBehaviour
 
     private bool HasRemainingPellets()
     {
+        //int count = 0;
         foreach (Transform pellet in pellets)
         {
             if (pellet.gameObject.activeSelf)
@@ -174,7 +179,8 @@ public class GameManager : MonoBehaviour
                 return true;
             }
         }
-
+        //Debug.Log($"Found {count} active pellets.");
+        //return count > 0;
         return false;
     }
 
