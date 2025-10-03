@@ -1074,7 +1074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &125418712
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9268,11 +9268,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1809471119 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3601347994454064409, guid: 77acc1829330ec24085b68ca0d5f57f5, type: 3}
-  m_PrefabInstance: {fileID: 2046484813}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1845062517
 GameObject:
   m_ObjectHideFlags: 0
@@ -10121,6 +10116,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghostbase
       objectReference: {fileID: 0}
+    - target: {fileID: 4982570182618242057, guid: 77acc1829330ec24085b68ca0d5f57f5, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 2046484835}
+    - target: {fileID: 4982570182618242057, guid: 77acc1829330ec24085b68ca0d5f57f5, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982570182618242057, guid: 77acc1829330ec24085b68ca0d5f57f5, type: 3}
+      propertyPath: startPoint
+      value: 
+      objectReference: {fileID: 57140708}
+    - target: {fileID: 4982570182618242057, guid: 77acc1829330ec24085b68ca0d5f57f5, type: 3}
+      propertyPath: initialDirection.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982570182618242057, guid: 77acc1829330ec24085b68ca0d5f57f5, type: 3}
+      propertyPath: initialDirection.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982570182618242057, guid: 77acc1829330ec24085b68ca0d5f57f5, type: 3}
+      propertyPath: obstacleLayer.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 5575328645728117622, guid: 77acc1829330ec24085b68ca0d5f57f5, type: 3}
       propertyPath: target
       value: 
@@ -10244,20 +10263,14 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3601347994454064409, guid: 77acc1829330ec24085b68ca0d5f57f5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2046484823}
-    - targetCorrespondingSourceObject: {fileID: 3601347994454064409, guid: 77acc1829330ec24085b68ca0d5f57f5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2046484824}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77acc1829330ec24085b68ca0d5f57f5, type: 3}
 --- !u!114 &2046484814 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2554277895660226923, guid: 77acc1829330ec24085b68ca0d5f57f5, type: 3}
   m_PrefabInstance: {fileID: 2046484813}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809471119}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8805c9430123f2a489ced443bdc64b75, type: 3}
@@ -10268,46 +10281,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5575328645728117622, guid: 77acc1829330ec24085b68ca0d5f57f5, type: 3}
   m_PrefabInstance: {fileID: 2046484813}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809471119}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b32bbeff46ba2c54697dace524ff953f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2046484823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809471119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b96668cdb347f334ba58c1d0739ba65f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canWallBounce: 1
-  startPoint: {fileID: 2005855955}
-  speed: 5
-  speedMultiplier: 1
-  initialDirection: {x: 0, y: 0}
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  rb: {fileID: 2046484835}
---- !u!114 &2046484824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809471119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46b7e07c56791964e942ccd187c59f59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sharkMovement: {fileID: 2046484823}
 --- !u!224 &2046484830 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6815391989786693485, guid: 77acc1829330ec24085b68ca0d5f57f5, type: 3}

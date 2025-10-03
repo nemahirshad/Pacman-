@@ -57,9 +57,10 @@ public class Ghost : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Pacman"))
         {
             GameManager.Instance.PacmanEaten();
+            gameObject.SetActive(false);
         }
 
-        gameObject.SetActive(false);
+        
     }
 
 }

@@ -17,7 +17,7 @@ public class Pacman : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        /*if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             movement.SetDirection(Vector2.up);
         }
@@ -32,8 +32,42 @@ public class Pacman : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             movement.SetDirection(Vector2.right);
+        }*/
+
+        //--------------------------------------------
+        // Read the main joystick axis values (returns -1 to 1)
+        float xInput = Input.GetAxisRaw("Horizontal");
+        float yInput = Input.GetAxisRaw("Vertical");
+
+        // We check for absolute values close to 1 to detect a definite push.
+        // Use a threshold (e.g., 0.9) to ignore slight stick drifts.
+        const float threshold = 0.9f;
+
+        // Horizontal Movement
+        if (xInput > threshold)
+        {
+            // Right
+            movement.SetDirection(Vector2.right);
+        }
+        else if (xInput < -threshold)
+        {
+            // Left
+            movement.SetDirection(Vector2.left);
         }
 
+        // Vertical Movement (Only check if not moving horizontally to prioritize clean turns)
+        else if (yInput > threshold)
+        {
+            // Up
+            movement.SetDirection(Vector2.up);
+        }
+        else if (yInput < -threshold)
+        {
+            // Down
+            movement.SetDirection(Vector2.down);
+        }
+
+        //----------------------------------------------
         // Rotate pacman to face the movement direction
         float angle = Mathf.Atan2(movement.direction.y, movement.direction.x);
         float rotationOffset = -90f;

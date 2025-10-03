@@ -54,9 +54,28 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
 
-        if (gameOverText.enabled && Input.anyKeyDown)
+        /*if (gameOverText.enabled && Input.anyKeyDown)
         {
             NewGame();
+        }*/
+
+        //---------------------------------------------
+        if (gameOverText.enabled)
+        {
+
+           /* for (int i = 0; i < 20; i++) // Test up to 20 buttons
+            {
+                if (Input.GetKeyDown(KeyCode.JoystickButton0 + i))
+                {
+                    Debug.Log("Joystick Button Pressed: " + i);
+                }
+            }*/
+                if (Input.anyKeyDown || Input.GetKeyDown(KeyCode.JoystickButton0))
+            {
+                // You should replace this with your ScreenManager transition logic 
+                // if you haven't already moved the restart logic there.
+                NewGame();
+            }
         }
 
     }

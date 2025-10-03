@@ -74,7 +74,7 @@ public class GhostWallBounce : MonoBehaviour
 
     }
 
-    /*private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         // Check if we hit an obstacle/wall layer
         if (((1 << collision.gameObject.layer) & obstacleLayer) != 0)
@@ -110,7 +110,7 @@ public class GhostWallBounce : MonoBehaviour
                 SetDirection(Vector2.zero, forced: true); // Force direction to zero until node logic runs
             }
         }
-    }*/
+    }
 
 
     // Helper function to check if the ghost is currently inside a Node trigger
