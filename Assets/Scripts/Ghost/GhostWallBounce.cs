@@ -20,7 +20,6 @@ public class GhostWallBounce : MonoBehaviour
 
     private Ghost ghost;
 
-    // Inside GhostWallBounce.cs
 
     public void Awake()
     {
@@ -28,13 +27,13 @@ public class GhostWallBounce : MonoBehaviour
         ghost = GetComponent<Ghost>();
         Debug.Log($"Shark Ghost script is: {ghost}"); // Check 2: Should not be null
 
-        startingPosition = transform.position;
+        //startingPosition = transform.position;
     }
 
     private void Start()
     {
         //startingPosition = transform.position;
-        //ResetState();
+        ResetState();
     }
 
     public void ResetState()
@@ -47,7 +46,10 @@ public class GhostWallBounce : MonoBehaviour
         }
 
         // ... (Your other lines)
-        transform.position = startingPosition;
+        if (startPoint != null)
+        {
+            transform.position = startPoint.position;
+        }
         rb.isKinematic = false; // <-- The crashing line (or near it)
         enabled = true;
         canWallBounce = true;
@@ -112,7 +114,7 @@ public class GhostWallBounce : MonoBehaviour
 
 
     // Helper function to check if the ghost is currently inside a Node trigger
-    private Node GetCurrentNode()
+    public Node GetCurrentNode()
     {
         // This relies on the Node having an IsTrigger collider
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 0.1f);
@@ -129,7 +131,7 @@ public class GhostWallBounce : MonoBehaviour
     }
 
     // Helper function to get a random valid direction (not 180 degrees opposite)
-    private Vector2 GetNewRandomDirection(Node node)
+    public Vector2 GetNewRandomDirection(Node node)
     {
         // This logic is primarily for Scatter or Frightened mode.
         List<Vector2> validDirections = node.availableDirections

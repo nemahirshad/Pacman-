@@ -4,6 +4,55 @@ using System.Linq;
 
 public class GhostScatter : GhostBehavior
 {
+
+    private void OnEnable()
+    {
+        // 1. Find the current Node the Ghost is sitting on (or near)
+        // NOTE: You must ensure your Ghost object is tagged/layered correctly for this check to work.
+        Node currentNode = FindCurrentNode();
+
+        if (currentNode != null)
+        {
+            // 2. Filter available directions (excluding the reverse direction)
+            List<Vector2> availableDirections = currentNode.availableDirections
+                 .Where(d => d != -ghost.movement.direction)
+                 .ToList();
+
+            // 3. Fallback: If only reverse is available, take it.
+            if (availableDirections.Count == 0)
+            {
+                availableDirections.Add(-ghost.movement.direction);
+            }
+
+            // 4. Pick a random direction from the valid ones and set movement
+            int index = Random.Range(0, availableDirections.Count);
+            Vector2 direction = availableDirections[index];
+
+            ghost.movement.SetDirection(direction);
+        }
+        else
+        {
+            // Fallback if the Ghost is NOT on a node (e.g., inside the initial pen)
+            // Use the direction set in the Inspector (which you must ensure is non-zero).
+            ghost.movement.SetDirection(ghost.movement.initialDirection);
+        }
+    }
+
+    private Node FindCurrentNode()
+    {
+        // This relies on the Node having an IsTrigger collider
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 0.1f);
+
+        foreach (Collider2D hit in hits)
+        {
+            Node node = hit.GetComponent<Node>();
+            if (node != null)
+            {
+                return node;
+            }
+        }
+        return null;
+    }
     private void OnDisable()
     {
         ghost.chase.Enable();

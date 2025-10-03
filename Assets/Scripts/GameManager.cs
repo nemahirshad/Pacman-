@@ -14,10 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform hazards;
     [SerializeField] private TextMeshProUGUI gameOverText;
     [SerializeField] private TextMeshProUGUI scoreText;
-    //[SerializeField] private TextMeshProUGUI livesText;
 
     public int score { get; private set; } = 0;
-    //public int lives { get; private set; } = 3;
+
 
     private int ghostMultiplier = 1;
 
@@ -41,11 +40,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /*  private void Start()
-      {
-          NewGame();
-      }*/
-
     private void Start()
     {
         StartCoroutine(StartGameRoutine());
@@ -53,8 +47,6 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartGameRoutine()
     {
-        // Wait one frame. This allows all Awake() and Start() methods in the 
-        // scene (including entity position logging) to finish running.
         yield return null;
 
         NewGame();
@@ -103,29 +95,58 @@ public class GameManager : MonoBehaviour
         pacman.ResetState();
     }
 
-    private void GameOver()
-    {
-        gameOverText.enabled = true;
-
-        pacman.gameObject.SetActive(false);
-
-        Debug.Log("Game Over called. Submitting score: " + this.score);
-
-        for (int i = 0; i < ghosts.Length; i++)
+    /*    private void GameOver()
         {
-            ghosts[i].gameObject.SetActive(false);
-        }
+            gameOverText.enabled = true;
 
-        // Ensure this line is not redundant (it's in your code twice, but won't hurt)
+            pacman.gameObject.SetActive(false);
+
+            Debug.Log("Game Over called. Submitting score: " + this.score);
+
+            for (int i = 0; i < ghosts.Length; i++)
+            {
+                ghosts[i].gameObject.SetActive(false);
+            }
+
+            // Ensure this line is not redundant (it's in your code twice, but won't hurt)
+
+            if (LeaderboardDisplay.instance != null)
+            {
+                LeaderboardDisplay.instance.AddToLeaderboard(this.score);
+            }
+
+        }
+    */
+
+    private IEnumerator GameOverSequence()
+    {
+        const float gameOverDuration = 6f;
 
         if (LeaderboardDisplay.instance != null)
         {
             LeaderboardDisplay.instance.AddToLeaderboard(this.score);
         }
 
-        // NOTE: The game is now frozen, waiting for Input.anyKeyDown in Update() to call NewGame()
-    }
+        pacman.gameObject.SetActive(false);
 
+        gameOverText.enabled = true;
+
+        Debug.Log($"Game Over! Showing text for {gameOverDuration} seconds.");
+        yield return new WaitForSeconds(gameOverDuration);
+
+        gameOverText.enabled = false;
+
+        ScreenManager screenManager = FindObjectOfType<ScreenManager>();
+        if (screenManager != null)
+        {
+            Debug.Log("Transitioning back to Start Screen...");
+            screenManager.TransitionToStartScreen();
+        }
+        else
+        {
+            Debug.LogError("ScreenManager not found for transition.");
+        }
+    }
     private void SetScore(int score)
     {
         this.score = score;
@@ -135,9 +156,9 @@ public class GameManager : MonoBehaviour
     public void PacmanEaten()
     {
         pacman.DeathSequence();
+        StartCoroutine(GameOverSequence());
+        // SetScore(0); 
 
-        Invoke(nameof(GameOver), 3f);
-     
     }
 
     public void GhostEaten(Ghost ghost)
@@ -157,7 +178,8 @@ public class GameManager : MonoBehaviour
         if (!HasRemainingPellets())
         {
             pacman.gameObject.SetActive(false);
-            Invoke(nameof(GameOver), 3f);
+            //Invoke(nameof(GameOver), 3f);
+            StartCoroutine(GameOverSequence());
         }
     }
 

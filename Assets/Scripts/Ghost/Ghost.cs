@@ -30,6 +30,7 @@ public class Ghost : MonoBehaviour
     {
         gameObject.SetActive(true);
         movement.ResetState();
+       // movement.SetDirection(Vector2.right, forced: true);
         chase.Disable();
         scatter.Enable();
 
@@ -57,6 +58,8 @@ public class Ghost : MonoBehaviour
         {
             GameManager.Instance.PacmanEaten();
         }
+
+        gameObject.SetActive(false);
     }
 
 }
