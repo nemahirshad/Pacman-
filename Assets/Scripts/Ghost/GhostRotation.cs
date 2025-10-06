@@ -18,7 +18,7 @@ public class SharkRotation : MonoBehaviour
             if (Mathf.Abs(direction.y) > Mathf.Abs(direction.x))
             {
                 float angle = Mathf.Atan2(direction.y, direction.x);
-                float rotationOffset = -90f;
+                float rotationOffset = 0f;
                 float finalAngle = angle * Mathf.Rad2Deg + rotationOffset;
 
                 transform.rotation = Quaternion.AngleAxis(finalAngle, Vector3.forward);

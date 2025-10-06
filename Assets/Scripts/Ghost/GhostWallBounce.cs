@@ -16,7 +16,6 @@ public class GhostWallBounce : MonoBehaviour
     [SerializeField] public Rigidbody2D rb;
     public Vector2 direction { get; private set; }
     public Vector2 nextDirection { get; private set; }
-    //public Vector3 startingPosition { get; private set; }
 
     private Ghost ghost;
 
@@ -27,30 +26,25 @@ public class GhostWallBounce : MonoBehaviour
         ghost = GetComponent<Ghost>();
         Debug.Log($"Shark Ghost script is: {ghost}"); // Check 2: Should not be null
 
-        //startingPosition = transform.position;
     }
 
     private void Start()
     {
-        //startingPosition = transform.position;
         ResetState();
     }
 
     public void ResetState()
     {
-        // TEMPORARY FIX: Add this null check to find the crashing line (Line 47)
         if (rb == null)
         {
-            Debug.LogError("Rigidbody is null on " + gameObject.name);
-            return; // Prevent crash, but indicates a setup issue
+            return; 
         }
 
-        // ... (Your other lines)
         if (startPoint != null)
         {
             transform.position = startPoint.position;
         }
-        rb.isKinematic = false; // <-- The crashing line (or near it)
+        rb.isKinematic = false;
         enabled = true;
         canWallBounce = true;
         rb.velocity = Vector2.zero;

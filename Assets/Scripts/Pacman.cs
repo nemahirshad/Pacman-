@@ -17,7 +17,7 @@ public class Pacman : MonoBehaviour
 
     private void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             movement.SetDirection(Vector2.up);
         }
@@ -32,7 +32,7 @@ public class Pacman : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             movement.SetDirection(Vector2.right);
-        }*/
+        }
 
         //--------------------------------------------
         // Read the main joystick axis values (returns -1 to 1)

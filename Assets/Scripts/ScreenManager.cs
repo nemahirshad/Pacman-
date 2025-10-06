@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public enum GameLanguage
 {
@@ -9,11 +10,10 @@ public enum GameLanguage
 public class ScreenManager : MonoBehaviour
 {
     [SerializeField] private GameObject startupScreen;
-
     [SerializeField] private GameObject coreGameScreen;
-
     [SerializeField] private GameObject englishUICanvas;
     [SerializeField] private GameObject arabicUICanvas;
+    [SerializeField] private UnityEngine.UI.Button englishButton;
 
     public static GameLanguage ActiveLanguage { get; private set; }
 
@@ -78,6 +78,13 @@ public class ScreenManager : MonoBehaviour
         arabicUICanvas.SetActive(false);
 
         startupScreen.SetActive(true);
+
+        if (englishButton != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+
+            EventSystem.current.SetSelectedGameObject(englishButton.gameObject);
+        }
 
         // 3. Reset the GameManager score (optional, but good practice for cleanup)
         // NOTE: GameManager.Instance must be accessible.
